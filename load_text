@@ -1,0 +1,75 @@
+import pandas as pd
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import DataLoader, TensorDataset
+from sklearn.feature_extraction.text import CountVectorizer
+
+
+class LSTMTextProcessor:
+    def __init__(self, excel_path):
+        self.excel_path = excel_path
+        self.max_len = 50
+        self.embedding_dim = 128
+        self.hidden_dim = 128
+
+        df = pd.read_excel(self.excel_path)
+        self.filenames = df.iloc[:, 0].tolist()
+        self.descriptions = df.iloc[:, 1].tolist()
+
+        self.vectorizer = CountVectorizer(max_features=12, stop_words='english')
+        X = self.vectorizer.fit_transform(self.descriptions).toarray()
+
+        self.texts_tensor = torch.tensor(X, dtype=torch.float32)
+
+        self.model = self._build_model()
+        self.model.train()
+        self._train_model()
+
+    def _build_model(self):
+        class LSTMModel(nn.Module):
+            def __init__(self, input_dim, embedding_dim, hidden_dim):
+                super(LSTMModel, self).__init__()
+                self.lstm = nn.LSTM(input_dim, hidden_dim, batch_first=True)
+                self.fc = nn.Linear(hidden_dim, 1)
+
+            def forward(self, x):
+                out, _ = self.lstm(x)
+                out = self.fc(out[:, -1, :])
+                return out
+
+        return LSTMModel(input_dim=12, embedding_dim=self.embedding_dim, hidden_dim=self.hidden_dim)
+
+    def _train_model(self):
+
+        y = torch.rand(self.texts_tensor.size(0), 1)
+
+        dataset = TensorDataset(self.texts_tensor, y)
+        dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
+        criterion = nn.MSELoss()
+        optimizer = optim.Adam(self.model.parameters(), lr=0.001)
+
+        for epoch in range(5):  # Adjust epochs as needed
+            for inputs, targets in dataloader:
+                optimizer.zero_grad()
+                outputs = self.model(inputs.unsqueeze(1))
+                loss = criterion(outputs, targets)
+                loss.backward()
+                optimizer.step()
+
+    def process_texts(self):
+        self.model.eval()
+        with torch.no_grad():
+            text_tensors = self.model(self.texts_tensor.unsqueeze(1))
+
+        # 构建结果字典并返回tensor_value
+        self.results = dict(zip(self.filenames, text_tensors.numpy()))
+        return text_tensors.numpy()  # 返回所有tensor_value的列表
+
+    def __getitem__(self, index):
+        if 0 <= index < len(self.filenames):
+            filename = self.filenames[index]
+            tensor_value = self.results[filename]
+            return filename, tensor_value
+        else:
+            raise IndexError("Index out of range.")
