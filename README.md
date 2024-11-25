@@ -1,7 +1,6 @@
 Get start
 ======
-This project is inspired by change_detection.pytorch and built based on it.
-Jump link:https://github.com/likyoo/change_detection.pytorch
+
 
 Once again, we did a lot of work on the basis, transforming the single-modal model into a text-led multi-modal model,
 building our own data set, expanding the research object under multi-task, multi-scenario and multi-climate conditions, and extending the research problems to disaster assessment,
