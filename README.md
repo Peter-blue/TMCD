@@ -49,7 +49,9 @@ Changing the path of the trained model (pth) in output2.py will generate the vis
 
 
 
-
+License
+===
+All images and codes in TMCD can be used for academic purposes only, but any commercial use is prohibited.
 
 
 
