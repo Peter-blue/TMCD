@@ -7,7 +7,9 @@ building our own data set, expanding the research object under multi-task, multi
 crop yield prediction and sea level supervision.
 
 Next I will explain the contents of TMCD:
-![1](https://github.com/user-attachments/assets/b9de1172-1a50-440b-ba61-5636d56047ca)
+![111111111](https://github.com/user-attachments/assets/d8d41c81-36db-434a-91ba-de700c4e7df0)
+
+
 As shown in the schematic above, our change detection framework is based on text and image expansion, and features are aggregated by image encoder GDC and text encoder TGL.
 
 ![CD123](https://github.com/user-attachments/assets/24aa4a75-db05-418d-9e0f-8215fd5b69ec)
