@@ -3,16 +3,20 @@ Get start
 
 
 Once again, we did a lot of work on the basis, transforming the single-modal model into a text-led multi-modal model,
-building our own data set, expanding the research object under multi-task, multi-scenario and multi-climate conditions, and extending the research problems to disaster assessment,
+building our own dataset, expanding the research object under multi-task, multi-scenario and multi-climate conditions, and extending the research problems to disaster assessment,
 crop yield prediction and sea level supervision.
+Solving three difficultity in building change detection,for example:
+<img width="800" height="550" alt="image" src="https://github.com/user-attachments/assets/31ab86f4-449b-43be-b8bb-a85d7692bb11" />
+
 
 Next I will explain the contents of TMCD:
-![111111111](https://github.com/user-attachments/assets/d8d41c81-36db-434a-91ba-de700c4e7df0)
 
+<img width="700" height="800" alt="image" src="https://github.com/user-attachments/assets/1406152a-a7c7-4dfe-8fe7-d7fdc1794715" />
 
 As shown in the schematic above, our change detection framework is based on text and image expansion, and features are aggregated by image encoder GDC and text encoder TGL.
 
-![CD123](https://github.com/user-attachments/assets/24aa4a75-db05-418d-9e0f-8215fd5b69ec)
+<img width="566" height="650" alt="image" src="https://github.com/user-attachments/assets/b097250d-638d-4833-97b0-9652b924fcdd" />
+
 Different from other networks, here we mainly study the multi-task detection (including changes in buildings, farmland, and water) under dark fog conditions, as shown above.
 
 
@@ -54,6 +58,6 @@ Changing the path of the trained model (pth) in output2.py will generate the vis
 License
 ===
 All images and codes in TMCD can be used for academic purposes only, but any commercial use is prohibited.
-
+**All codes will be provided after the paper is accepted**
 
 
